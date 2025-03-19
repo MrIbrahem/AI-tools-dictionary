@@ -12,6 +12,7 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const [showSections, setShowSections] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +68,17 @@ export default function Home() {
         <h2 className="text-2xl text-center mb-8 text-muted-foreground">
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
-        <nav className="mb-8">
+        <div className="flex justify-center mb-4">
+          <Button
+            variant="outline"
+            onClick={() => setShowSections(!showSections)}
+            className="flex items-center gap-2"
+          >
+            {showSections ? "إخفاء الأقسام" : "عرض الأقسام"}
+            <ChevronDown className={`h-4 w-4 transition-transform ${showSections ? 'rotate-180' : ''}`} />
+          </Button>
+        </div>
+        <nav className={`mb-8 ${showSections ? '' : 'hidden'}`}>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {categories.map((category, index) => (
               <Button
@@ -76,6 +87,7 @@ export default function Home() {
                 className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
                 onClick={() => {
                   setActiveCategory(activeCategory === index ? null : index);
+                  setShowSections(false);
                   document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
