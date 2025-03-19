@@ -38,16 +38,16 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col" dir="rtl">
       <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground h-16">
         <div className="container mx-auto px-4 h-full">
-          <div className="flex justify-between items-center h-full">
+          <div className="flex flex-row-reverse justify-between items-center h-full">
+            <h1 className="text-xl font-bold">
+              دليل أدوات الذكاء الاصطناعي
+            </h1>
             <div className="w-64">
               <SearchBar 
                 value={searchQuery}
                 onChange={setSearchQuery}
               />
             </div>
-            <h1 className="text-xl font-bold">
-              دليل أدوات الذكاء الاصطناعي
-            </h1>
           </div>
         </div>
       </header>
