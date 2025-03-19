@@ -66,32 +66,24 @@ export default function Home() {
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
         
-        <nav className="mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {categories.map((category, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
-                onClick={() => {
-                  setActiveCategory(activeCategory === index ? null : index);
-                  document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {category.title.split(' ').slice(-2).join(' ')}
-              </Button>
-            ))}
-          </div>
-        </nav>
-
-        <Tabs defaultValue={categories[0]?.title} className="w-full">
-          <div className="hidden">
-            <TabsList>
+        <Tabs defaultValue={categories[0]?.title} className="w-full" onValueChange={(value) => {
+          const index = categories.findIndex(cat => cat.title === value);
+          setActiveCategory(index);
+        }}>
+          <nav className="mb-8">
+            <TabsList className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 bg-transparent">
               {categories.map((category, index) => (
-                <TabsTrigger key={index} value={category.title} />
+                <TabsTrigger
+                  key={index}
+                  value={category.title}
+                  className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
+                >
+                  {category.title.split(' ').slice(-2).join(' ')}
+                </TabsTrigger>
               ))}
             </TabsList>
-          </div>
+          </nav>
+          
 
           {categories.map((category, index) => (
             <TabsContent key={index} value={category.title}>
