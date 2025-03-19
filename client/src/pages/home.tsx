@@ -7,6 +7,15 @@ import { Github, Instagram, Twitter, Facebook } from "lucide-react";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const categories = loadAIData();
 
   const filteredCategories = useMemo(() => {
@@ -27,26 +36,26 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col" dir="rtl">
-      <header className="bg-primary text-primary-foreground py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground transition-all duration-300" style={{ height: isScrolled ? '64px' : '200px' }}>
+        <div className="container mx-auto px-4 h-full flex flex-col justify-center">
+          <div className={`transition-all duration-300 ${isScrolled ? 'flex justify-between items-center' : ''}`}>
+            <h1 className={`font-bold transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-3xl'}`}>
               دليل أدوات الذكاء الاصطناعي
             </h1>
+            <div className={`transition-all duration-300 ${isScrolled ? 'w-64' : 'mt-6 max-w-2xl mx-auto w-full'}`}>
+              <SearchBar 
+                value={searchQuery}
+                onChange={setSearchQuery}
+              />
+            </div>
           </div>
-          <p className="mt-4 text-lg opacity-90">
+          <p className={`mt-4 text-lg opacity-90 transition-all duration-300 ${isScrolled ? 'hidden' : ''}`}>
             استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
           </p>
-          <div className="mt-6 max-w-2xl mx-auto">
-            <SearchBar 
-              value={searchQuery}
-              onChange={setSearchQuery}
-            />
-          </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      <main className="container mx-auto px-4 py-8 flex-grow mt-52">
         <div className="space-y-6">
           {filteredCategories.map((category, index) => (
             <CategoryCard 
