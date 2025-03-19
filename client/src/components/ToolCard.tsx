@@ -4,13 +4,12 @@ import { ExternalLink } from "lucide-react";
 
 interface ToolCardProps {
   tool: AITool & { categoryId: number };
-  isRTL: boolean;
 }
 
-export function ToolCard({ tool, isRTL }: ToolCardProps) {
+export function ToolCard({ tool }: ToolCardProps) {
   return (
     <Card>
-      <CardContent className="p-4" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+      <CardContent className="p-4">
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-lg font-bold">{tool.name}</h4>
           <a 
@@ -24,11 +23,11 @@ export function ToolCard({ tool, isRTL }: ToolCardProps) {
         </div>
 
         <p className="text-muted-foreground mb-4">
-          {isRTL ? tool.descriptionAr : tool.description}
+          {tool.descriptionAr}
         </p>
 
         <ul className="space-y-2">
-          {(isRTL ? tool.usesAr : tool.use_cases).map((use, index) => (
+          {tool.usesAr.map((use, index) => (
             <li key={index} className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary"></span>
               {use}

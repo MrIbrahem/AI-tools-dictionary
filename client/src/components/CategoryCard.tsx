@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { AICategory, AITool } from "@/lib/loadData";
+import { AICategory } from "@/lib/loadData";
 import { useState } from "react";
 import { ToolCard } from "./ToolCard";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -7,10 +7,9 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 interface CategoryCardProps {
   category: AICategory;
   categoryIndex: number;
-  isRTL: boolean;
 }
 
-export function CategoryCard({ category, categoryIndex, isRTL }: CategoryCardProps) {
+export function CategoryCard({ category, categoryIndex }: CategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -19,7 +18,6 @@ export function CategoryCard({ category, categoryIndex, isRTL }: CategoryCardPro
         <div 
           className="p-4 cursor-pointer flex items-center justify-between"
           onClick={() => setIsExpanded(!isExpanded)}
-          style={{ direction: isRTL ? 'rtl' : 'ltr' }}
         >
           <div>
             <h3 className="text-xl font-bold">
@@ -38,7 +36,6 @@ export function CategoryCard({ category, categoryIndex, isRTL }: CategoryCardPro
               <ToolCard 
                 key={`${categoryIndex}-${index}`} 
                 tool={{...tool, categoryId: categoryIndex + 1}} 
-                isRTL={isRTL} 
               />
             ))}
           </div>
