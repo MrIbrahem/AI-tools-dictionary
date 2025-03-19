@@ -2,7 +2,7 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { loadAIData } from "@/lib/loadData";
 import { SearchBar } from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronDown } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Github, Instagram, Twitter, Facebook } from "lucide-react";
