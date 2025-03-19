@@ -3,9 +3,7 @@ import aiData from '../../../attached_assets/ai.json';
 export interface AITool {
   name: string;
   description: string;
-  descriptionAr: string;
   use_cases: string[];
-  usesAr: string[];
   path: string;
 }
 

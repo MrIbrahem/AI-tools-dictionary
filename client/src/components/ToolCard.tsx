@@ -23,11 +23,11 @@ export function ToolCard({ tool }: ToolCardProps) {
         </div>
 
         <p className="text-muted-foreground mb-4">
-          {tool.descriptionAr}
+          {tool.description}
         </p>
 
         <ul className="space-y-2">
-          {tool.usesAr.map((use, index) => (
+          {tool.use_cases.map((use, index) => (
             <li key={index} className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary"></span>
               {use}
