@@ -11,11 +11,11 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ category, categoryIndex, isActive }: CategoryCardProps) {
-  const [isExpanded, setIsExpanded] = useState(isActive);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
-    setIsExpanded(isActive);
-  }, [isActive]);
+    setIsExpanded(false);
+  }, []);
 
   return (
     <Card id={`category-${categoryIndex}`} className="mb-4 overflow-hidden scroll-mt-20">
