@@ -9,8 +9,8 @@ interface CategoryCardProps {
   categoryIndex: number;
 }
 
-export function CategoryCard({ category, categoryIndex }: CategoryCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+export function CategoryCard({ category, categoryIndex, defaultExpanded = false }: CategoryCardProps & { defaultExpanded?: boolean }) {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   return (
     <Card id={`category-${categoryIndex}`} className="mb-4 overflow-hidden scroll-mt-20">

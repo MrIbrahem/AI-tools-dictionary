@@ -10,6 +10,7 @@ import { Github, Instagram, Twitter, Facebook } from "lucide-react";
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [showSections, setShowSections] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -80,9 +81,20 @@ export default function Home() {
             ))}
           </div>
         </nav>
-        <div className="space-y-6">
+        <div className="flex justify-center mb-6">
+          <Button
+            variant="outline"
+            onClick={() => setShowSections(!showSections)}
+            className="flex items-center gap-2"
+          >
+            {showSections ? "إخفاء الأقسام" : "عرض الأقسام"}
+            <ChevronDown className={`h-4 w-4 transition-transform ${showSections ? 'rotate-180' : ''}`} />
+          </Button>
+        </div>
+        <div className={`space-y-6 transition-all duration-300 ${showSections ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
           {filteredCategories.map((category, index) => (
-            <CategoryCard 
+            <CategoryCard
+              defaultExpanded={index === 0} 
               key={index} 
               category={category}
               categoryIndex={index}
