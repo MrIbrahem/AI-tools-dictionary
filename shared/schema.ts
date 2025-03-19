@@ -4,11 +4,9 @@ import { z } from "zod";
 
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  nameAr: text("name_ar").notNull(),
-  icon: text("icon").notNull(),
-  description: text("description").notNull(),
-  descriptionAr: text("description_ar").notNull()
+  title: text("title").notNull(),
+  introduction: text("introduction").notNull(),
+  tools: text("tools").array().notNull()
 });
 
 export const tools = pgTable("tools", {
@@ -17,10 +15,9 @@ export const tools = pgTable("tools", {
   name: text("name").notNull(),
   description: text("description").notNull(),
   descriptionAr: text("description_ar").notNull(),
-  uses: text("uses").array().notNull(),
+  use_cases: text("use_cases").array().notNull(),
   usesAr: text("uses_ar").array().notNull(),
-  url: text("url").notNull(),
-  image: text("image").notNull()
+  path: text("path").notNull()
 });
 
 export const insertCategorySchema = createInsertSchema(categories).omit({ id: true });

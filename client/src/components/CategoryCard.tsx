@@ -1,18 +1,17 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Category } from "@shared/schema";
+import { AICategory, AITool } from "@/lib/loadData";
 import { useState } from "react";
 import { ToolCard } from "./ToolCard";
-import { tools } from "../data/tools";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface CategoryCardProps {
-  category: Category;
+  category: AICategory;
+  categoryIndex: number;
   isRTL: boolean;
 }
 
-export function CategoryCard({ category, isRTL }: CategoryCardProps) {
+export function CategoryCard({ category, categoryIndex, isRTL }: CategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const categoryTools = tools.filter(tool => tool.categoryId === category.id);
 
   return (
     <Card className="mb-4 overflow-hidden">
@@ -22,28 +21,25 @@ export function CategoryCard({ category, isRTL }: CategoryCardProps) {
           onClick={() => setIsExpanded(!isExpanded)}
           style={{ direction: isRTL ? 'rtl' : 'ltr' }}
         >
-          <div className="flex items-center gap-4">
-            <img 
-              src={category.icon} 
-              alt={isRTL ? category.nameAr : category.name}
-              className="w-12 h-12 rounded-lg object-cover"
-            />
-            <div>
-              <h3 className="text-xl font-bold">
-                {isRTL ? category.nameAr : category.name}
-              </h3>
-              <p className="text-muted-foreground">
-                {isRTL ? category.descriptionAr : category.description}
-              </p>
-            </div>
+          <div>
+            <h3 className="text-xl font-bold">
+              {category.title}
+            </h3>
+            <p className="text-muted-foreground">
+              {category.introduction}
+            </p>
           </div>
           {isExpanded ? <ChevronUp /> : <ChevronDown />}
         </div>
 
         {isExpanded && (
           <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {categoryTools.map(tool => (
-              <ToolCard key={tool.id} tool={tool} isRTL={isRTL} />
+            {category.tools.map((tool, index) => (
+              <ToolCard 
+                key={`${categoryIndex}-${index}`} 
+                tool={{...tool, categoryId: categoryIndex + 1}} 
+                isRTL={isRTL} 
+              />
             ))}
           </div>
         )}

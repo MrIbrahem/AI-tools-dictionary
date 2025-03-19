@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { CategoryCard } from "@/components/CategoryCard";
-import { categories } from "../data/categories";
 import { Button } from "@/components/ui/button";
 import { Languages } from "lucide-react";
+import { loadAIData } from "@/lib/loadData";
 
 export default function Home() {
   const [isRTL, setIsRTL] = useState(false);
+  const categories = loadAIData();
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,18 +27,19 @@ export default function Home() {
           </div>
           <p className="mt-4 text-lg opacity-90">
             {isRTL 
-              ? "استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في 12 فئة"
-              : "Explore the best AI tools categorized in 12 categories"}
+              ? "استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة"
+              : "Explore the best AI tools categorized in various categories"}
           </p>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
         <div className="space-y-6">
-          {categories.map(category => (
+          {categories.map((category, index) => (
             <CategoryCard 
-              key={category.id} 
-              category={category} 
+              key={index} 
+              category={category}
+              categoryIndex={index}
               isRTL={isRTL} 
             />
           ))}

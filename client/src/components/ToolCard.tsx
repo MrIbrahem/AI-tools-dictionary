@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Tool } from "@shared/schema";
+import { AITool } from "@/lib/loadData";
 import { ExternalLink } from "lucide-react";
 
 interface ToolCardProps {
-  tool: Tool;
+  tool: AITool & { categoryId: number };
   isRTL: boolean;
 }
 
@@ -11,16 +11,10 @@ export function ToolCard({ tool, isRTL }: ToolCardProps) {
   return (
     <Card>
       <CardContent className="p-4" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
-        <img 
-          src={tool.image} 
-          alt={isRTL ? tool.descriptionAr : tool.description}
-          className="w-full h-48 object-cover rounded-lg mb-4"
-        />
-        
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-4">
           <h4 className="text-lg font-bold">{tool.name}</h4>
           <a 
-            href={tool.url} 
+            href={tool.path} 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-primary hover:text-primary/80"
@@ -34,7 +28,7 @@ export function ToolCard({ tool, isRTL }: ToolCardProps) {
         </p>
 
         <ul className="space-y-2">
-          {(isRTL ? tool.usesAr : tool.uses).map((use, index) => (
+          {(isRTL ? tool.usesAr : tool.use_cases).map((use, index) => (
             <li key={index} className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary"></span>
               {use}
