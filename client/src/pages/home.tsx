@@ -18,25 +18,29 @@ export default function Home() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const categories = loadAIData();
 
   const filteredCategories = useMemo(() => {
     if (!searchQuery.trim()) return categories;
-    return categories.map(category => ({
-      ...category,
-      tools: category.tools.filter(tool => {
-        const searchLower = searchQuery.toLowerCase();
-        return (
-          tool.name.toLowerCase().includes(searchLower) ||
-          tool.description.toLowerCase().includes(searchLower) ||
-          tool.use_cases.some(use => use.toLowerCase().includes(searchLower))
-        );
-      })
-    })).filter(category => category.tools.length > 0);
+    return categories
+      .map((category) => ({
+        ...category,
+        tools: category.tools.filter((tool) => {
+          const searchLower = searchQuery.toLowerCase();
+          return (
+            tool.name.toLowerCase().includes(searchLower) ||
+            tool.description.toLowerCase().includes(searchLower) ||
+            tool.use_cases.some((use) =>
+              use.toLowerCase().includes(searchLower),
+            )
+          );
+        }),
+      }))
+      .filter((category) => category.tools.length > 0);
   }, [categories, searchQuery]);
 
   return (
@@ -45,7 +49,11 @@ export default function Home() {
         <div className="container mx-auto px-4 h-full">
           <div className="flex items-center justify-between h-full">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" onClick={() => setShowSearch(!showSearch)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowSearch(!showSearch)}
+              >
                 <Search className="h-5 w-5" />
               </Button>
               {showSearch && (
@@ -54,9 +62,7 @@ export default function Home() {
                 </div>
               )}
             </div>
-            <h1 className="text-xl font-bold">
-              دليل أدوات الذكاء الاصطناعي
-            </h1>
+            <h1 className="text-xl font-bold">دليل أدوات الذكاء الاصطناعي</h1>
           </div>
         </div>
       </header>
@@ -65,30 +71,34 @@ export default function Home() {
         <h2 className="text-2xl text-center mb-8 text-muted-foreground">
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
-        
-        <Tabs 
-          defaultValue={categories[0]?.title} 
-          className="w-full flex flex-col" 
+
+        <Tabs
+          defaultValue={categories[0]?.title}
+          className="w-full flex flex-col relative"
           onValueChange={(value) => {
-            const index = categories.findIndex(cat => cat.title === value);
+            const index = categories.findIndex((cat) => cat.title === value);
             setActiveCategory(index);
           }}
         >
-          <TabsList className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 bg-transparent mb-8">
+          <TabsList className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 bg-transparent mb-8 relative z-10">
             {categories.map((category, index) => (
               <TabsTrigger
                 key={index}
                 value={category.title}
-                className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
+                className={`w-full text-center py-6 ${activeCategory === index ? "bg-primary text-primary-foreground" : ""}`}
               >
-                {category.title.split(' ').slice(-2).join(' ')}
+                {category.title.split(" ").slice(-2).join(" ")}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <div className="mt-4">
+          <div className="mt-4 relative z-0">
             {categories.map((category, index) => (
-              <TabsContent key={index} value={category.title}>
+              <TabsContent
+                key={index}
+                value={category.title}
+                className="relative"
+              >
                 <CategoryCard
                   category={category}
                   categoryIndex={index}
@@ -139,7 +149,9 @@ export default function Home() {
             <span className="sr-only">Facebook</span>
           </a>
         </div>
-        <p className="text-sm text-muted-foreground">م/إبراهيم الرداعي - 770633517</p>
+        <p className="text-sm text-muted-foreground">
+          م/إبراهيم الرداعي - 770633517
+        </p>
       </footer>
     </div>
   );
