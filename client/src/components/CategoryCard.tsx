@@ -7,10 +7,15 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 interface CategoryCardProps {
   category: AICategory;
   categoryIndex: number;
+  isActive: boolean;
 }
 
-export function CategoryCard({ category, categoryIndex }: CategoryCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+export function CategoryCard({ category, categoryIndex, isActive }: CategoryCardProps) {
+  const [isExpanded, setIsExpanded] = useState(isActive);
+
+  useEffect(() => {
+    setIsExpanded(isActive);
+  }, [isActive]);
 
   return (
     <Card id={`category-${categoryIndex}`} className="mb-4 overflow-hidden scroll-mt-20">

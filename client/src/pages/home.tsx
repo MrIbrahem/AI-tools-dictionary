@@ -11,6 +11,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,8 +73,11 @@ export default function Home() {
               <Button
                 key={index}
                 variant="outline"
-                className="w-full text-center py-6"
-                onClick={() => document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' })}
+                className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
+                onClick={() => {
+                  setActiveCategory(activeCategory === index ? null : index);
+                  document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 {category.title.split(' ').slice(-2).join(' ')}
               </Button>
@@ -86,6 +90,7 @@ export default function Home() {
               key={index} 
               category={category}
               categoryIndex={index}
+              isActive={activeCategory === index}
             />
           ))}
         </div>
