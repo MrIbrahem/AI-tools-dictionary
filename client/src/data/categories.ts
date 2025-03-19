@@ -40,5 +40,13 @@ export const categories: Category[] = [
     icon: "🍎",
     description: "AI tools for educators and teaching professionals",
     descriptionAr: "أدوات الذكاء الاصطناعي للمعلمين ومحترفي التعليم"
+  },
+  {
+    id: 6,
+    name: "Legal Tools",
+    nameAr: "أدوات المحامين",
+    icon: "⚖️",
+    description: "AI tools for legal professionals",
+    descriptionAr: "أدوات الذكاء الاصطناعي للمحامين والمهنيين القانونيين"
   }
 ];
