@@ -65,7 +65,7 @@ export default function Home() {
         )}
       </main>
 
-      <footer className="bg-muted py-4 text-center mt-auto">
+      <footer className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 text-center">
         <div className="flex justify-center gap-4 mb-2">
           <a
             href="https://github.com/MrIbrahem"
