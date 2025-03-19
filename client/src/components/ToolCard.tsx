@@ -10,6 +10,14 @@ export function ToolCard({ tool }: ToolCardProps) {
   return (
     <Card>
       <CardContent className="p-4">
+        <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+          <img 
+            src={`//image.thum.io/get/${tool.path}`}
+            alt={tool.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-lg font-bold">{tool.name}</h4>
           <a 
