@@ -1,12 +1,15 @@
 import { CategoryCard } from "@/components/CategoryCard";
 import { loadAIData } from "@/lib/loadData";
 import { SearchBar } from "@/components/SearchBar";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Github, Instagram, Twitter, Facebook } from "lucide-react";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -38,16 +41,23 @@ export default function Home() {
     <div className="min-h-screen bg-background flex flex-col" dir="rtl">
       <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground h-16">
         <div className="container mx-auto px-4 h-full">
-          <div className="flex flex-row-reverse justify-between items-center h-full">
+          <div className="flex items-center justify-between h-full">
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" onClick={() => setShowSearch(!showSearch)}>
+                <Search className="h-5 w-5" />
+              </Button>
+              {showSearch && (
+                <div className="w-64">
+                  <SearchBar 
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                  />
+                </div>
+              )}
+            </div>
             <h1 className="text-xl font-bold">
               دليل أدوات الذكاء الاصطناعي
             </h1>
-            <div className="w-64">
-              <SearchBar 
-                value={searchQuery}
-                onChange={setSearchQuery}
-              />
-            </div>
           </div>
         </div>
       </header>
