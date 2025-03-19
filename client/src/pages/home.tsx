@@ -47,7 +47,7 @@ export default function Home() {
                 <Search className="h-5 w-5" />
               </Button>
               {showSearch && (
-                <div className="w-64">
+                <div className="w-64 transition-all duration-300 ease-in-out">
                   <SearchBar 
                     value={searchQuery}
                     onChange={setSearchQuery}
@@ -66,6 +66,20 @@ export default function Home() {
         <h2 className="text-2xl text-center mb-8 text-muted-foreground">
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
+        <nav className="mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {categories.map((category, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                className="w-full text-center py-6"
+                onClick={() => document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                {category.title.split(' ').slice(-2).join(' ')}
+              </Button>
+            ))}
+          </div>
+        </nav>
         <div className="space-y-6">
           {filteredCategories.map((category, index) => (
             <CategoryCard 

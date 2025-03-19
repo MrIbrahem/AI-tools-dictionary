@@ -13,7 +13,7 @@ export function CategoryCard({ category, categoryIndex }: CategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className="mb-4 overflow-hidden">
+    <Card id={`category-${categoryIndex}`} className="mb-4 overflow-hidden scroll-mt-20">
       <CardContent className="p-0">
         <div 
           className="p-4 cursor-pointer flex items-center justify-between"
