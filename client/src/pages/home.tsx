@@ -66,34 +66,37 @@ export default function Home() {
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
         
-        <Tabs defaultValue={categories[0]?.title} className="w-full" onValueChange={(value) => {
-          const index = categories.findIndex(cat => cat.title === value);
-          setActiveCategory(index);
-        }}>
-          <nav className="mb-8">
-            <TabsList className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 bg-transparent">
-              {categories.map((category, index) => (
-                <TabsTrigger
-                  key={index}
-                  value={category.title}
-                  className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
-                >
-                  {category.title.split(' ').slice(-2).join(' ')}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </nav>
-          
+        <Tabs 
+          defaultValue={categories[0]?.title} 
+          className="w-full flex flex-col" 
+          onValueChange={(value) => {
+            const index = categories.findIndex(cat => cat.title === value);
+            setActiveCategory(index);
+          }}
+        >
+          <TabsList className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 bg-transparent mb-8">
+            {categories.map((category, index) => (
+              <TabsTrigger
+                key={index}
+                value={category.title}
+                className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
+              >
+                {category.title.split(' ').slice(-2).join(' ')}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-          {categories.map((category, index) => (
-            <TabsContent key={index} value={category.title}>
-              <CategoryCard
-                category={category}
-                categoryIndex={index}
-                isActive={activeCategory === index}
-              />
-            </TabsContent>
-          ))}
+          <div className="mt-4">
+            {categories.map((category, index) => (
+              <TabsContent key={index} value={category.title}>
+                <CategoryCard
+                  category={category}
+                  categoryIndex={index}
+                  isActive={activeCategory === index}
+                />
+              </TabsContent>
+            ))}
+          </div>
         </Tabs>
       </main>
 
