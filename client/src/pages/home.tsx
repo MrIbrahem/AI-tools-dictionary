@@ -36,26 +36,28 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col" dir="rtl">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground transition-all duration-300" style={{ height: isScrolled ? '64px' : '200px' }}>
-        <div className="container mx-auto px-4 h-full flex flex-col justify-center">
-          <div className={`transition-all duration-300 ${isScrolled ? 'flex justify-between items-center' : ''}`}>
-            <h1 className={`font-bold transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-3xl'}`}>
-              دليل أدوات الذكاء الاصطناعي
-            </h1>
-            <div className={`transition-all duration-300 ${isScrolled ? 'w-64' : 'mt-6 max-w-2xl mx-auto w-full'}`}>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground h-16">
+        <div className="container mx-auto px-4 h-full">
+          <div className="flex justify-between items-center h-full">
+            <div className="w-64">
               <SearchBar 
                 value={searchQuery}
                 onChange={setSearchQuery}
               />
             </div>
+            <div className="flex flex-col items-end">
+              <h1 className="text-xl font-bold">
+                دليل أدوات الذكاء الاصطناعي
+              </h1>
+              <p className="text-sm opacity-90">
+                استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
+              </p>
+            </div>
           </div>
-          <p className={`mt-4 text-lg opacity-90 transition-all duration-300 ${isScrolled ? 'hidden' : ''}`}>
-            استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
-          </p>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 flex-grow mt-52">
+      <main className="container mx-auto px-4 py-8 flex-grow mt-20">
         <div className="space-y-6">
           {filteredCategories.map((category, index) => (
             <CategoryCard 
