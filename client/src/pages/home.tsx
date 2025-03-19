@@ -2,17 +2,16 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { loadAIData } from "@/lib/loadData";
 import { SearchBar } from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronDown } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Github, Instagram, Twitter, Facebook } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<number | null>(null);
-  const [showSections, setShowSections] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +20,11 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   const categories = loadAIData();
 
   const filteredCategories = useMemo(() => {
     if (!searchQuery.trim()) return categories;
-
     return categories.map(category => ({
       ...category,
       tools: category.tools.filter(tool => {
@@ -50,10 +49,7 @@ export default function Home() {
               </Button>
               {showSearch && (
                 <div className="w-64 transition-all duration-300 ease-in-out">
-                  <SearchBar 
-                    value={searchQuery}
-                    onChange={setSearchQuery}
-                  />
+                  <SearchBar value={searchQuery} onChange={setSearchQuery} />
                 </div>
               )}
             </div>
@@ -68,41 +64,30 @@ export default function Home() {
         <h2 className="text-2xl text-center mb-8 text-muted-foreground">
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
-        <nav className="mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {categories.map((category, index) => (
-              <Button
+
+        <Tabs defaultValue={filteredCategories[0]?.title} className="w-full">
+          <TabsList className="flex flex-wrap justify-center gap-2 mb-8">
+            {filteredCategories.map((category, index) => (
+              <TabsTrigger
                 key={index}
-                variant="outline"
-                className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
-                onClick={() => {
-                  setActiveCategory(activeCategory === index ? null : index);
-                  setShowSections(false);
-                  document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                value={category.title}
+                className="py-6 px-4"
               >
                 {category.title.split(' ').slice(-2).join(' ')}
-              </Button>
+              </TabsTrigger>
             ))}
-          </div>
-        </nav>
-        <div className="space-y-6">
+          </TabsList>
+
           {filteredCategories.map((category, index) => (
-            <CategoryCard 
-              key={index} 
-              category={category}
-              categoryIndex={index}
-              isActive={activeCategory === index}
-            />
+            <TabsContent key={index} value={category.title}>
+              <CategoryCard
+                category={category}
+                categoryIndex={index}
+                isActive={true}
+              />
+            </TabsContent>
           ))}
-        </div>
-        {filteredCategories.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-xl text-muted-foreground">
-              لم يتم العثور على نتائج للبحث
-            </p>
-          </div>
-        )}
+        </Tabs>
       </main>
 
       <footer className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 text-center">
