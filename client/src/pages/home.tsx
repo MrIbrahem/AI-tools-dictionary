@@ -1,7 +1,7 @@
 import { CategoryCard } from "@/components/CategoryCard";
 import { loadAIData } from "@/lib/loadData";
 import { SearchBar } from "@/components/SearchBar";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Github, Instagram, Twitter, Facebook } from "lucide-react";
 
