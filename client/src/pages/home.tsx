@@ -64,26 +64,40 @@ export default function Home() {
         <h2 className="text-2xl text-center mb-8 text-muted-foreground">
           استكشف أفضل أدوات الذكاء الاصطناعي مصنفة في فئات متنوعة
         </h2>
-
-        <Tabs defaultValue={filteredCategories[0]?.title} className="w-full">
-          <TabsList className="flex flex-wrap justify-center gap-2 mb-8">
-            {filteredCategories.map((category, index) => (
-              <TabsTrigger
+        
+        <nav className="mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {categories.map((category, index) => (
+              <Button
                 key={index}
-                value={category.title}
-                className="py-6 px-4"
+                variant="outline"
+                className={`w-full text-center py-6 ${activeCategory === index ? 'bg-primary text-primary-foreground' : ''}`}
+                onClick={() => {
+                  setActiveCategory(activeCategory === index ? null : index);
+                  document.getElementById(`category-${index}`)?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 {category.title.split(' ').slice(-2).join(' ')}
-              </TabsTrigger>
+              </Button>
             ))}
-          </TabsList>
+          </div>
+        </nav>
 
-          {filteredCategories.map((category, index) => (
+        <Tabs defaultValue={categories[0]?.title} className="w-full">
+          <div className="hidden">
+            <TabsList>
+              {categories.map((category, index) => (
+                <TabsTrigger key={index} value={category.title} />
+              ))}
+            </TabsList>
+          </div>
+
+          {categories.map((category, index) => (
             <TabsContent key={index} value={category.title}>
               <CategoryCard
                 category={category}
                 categoryIndex={index}
-                isActive={true}
+                isActive={activeCategory === index}
               />
             </TabsContent>
           ))}
