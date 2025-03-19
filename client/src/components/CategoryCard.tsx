@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AICategory } from "@/lib/loadData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToolCard } from "./ToolCard";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
